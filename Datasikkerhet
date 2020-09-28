@@ -1,0 +1,105 @@
+
+#include <iostream>
+#include <string>
+#include <sstream>
+
+
+char encryptChar(char a, char b) {
+	int ascii = (a + b) % 128;
+	return ascii;
+
+};
+
+char decryptChar(char a, char b) {
+	int ascii = (a - b + 128) % 128;
+	return ascii;
+
+};
+
+std::string encryptText(std::string plaintext, std::string key) {
+
+	std::stringstream ciphertext;
+	for (int i = 0; i < plaintext.size(); i++)
+	{
+		char c = encryptChar(plaintext[i], key[i % key.size()]);
+		ciphertext << c;
+
+	}
+
+	return ciphertext.str();
+
+
+
+
+}
+
+std::string decryptText(std::string ciphertext, std::string key) {
+
+	std::stringstream plaintext;
+	for (int i = 0; i < ciphertext.size(); i++)
+	{
+		char c = decryptChar(ciphertext[i], key[i % key.size()]);
+		plaintext << c;
+
+	}
+
+	return plaintext.str();
+
+
+
+}
+
+std::string singleKey(std::string plaintext, std::string key)
+{
+
+	std::cout << "Plaintext: " << plaintext << std::endl;
+	std::cout << "Key: " << key << std::endl;
+
+	std::string ciphertext = encryptText(plaintext, key);
+	std::cout << "Ciphertext: " << ciphertext << std::endl;
+
+
+	std::string decrypted = decryptText(ciphertext, "Kongzberg");
+
+	std::cout << "Decrypted Text: " << decrypted << std::endl;
+
+	return decrypted;
+	
+	
+}
+
+
+
+
+std::string doubleKey(std::string plaintext, std::string keyOne, std::string keyTwo)
+{
+
+
+	std::cout << "Plaintext: " << plaintext << std::endl;
+	std::cout << "Key: " << keyOne << std::endl;
+	std::cout << "Second Key: " << keyTwo << std::endl;
+
+	std::string cipherOne = encryptText(plaintext, keyOne);
+	std::cout << "Ciphertext: " << cipherOne << std::endl;
+
+	std::string cipherTwo = encryptText(cipherOne, keyTwo);
+
+	std::cout << "Ciphertext Two: " << cipherTwo << std::endl;
+
+	std::string decryptOne = decryptText(cipherTwo, keyTwo);
+	std::string decryptTwo = decryptText(decryptOne, keyOne);
+
+	std::cout << "Decrypted Plaintext: " << decryptTwo << std::endl;
+
+	return decryptTwo;
+}
+int main()
+{
+
+
+	singleKey("The quick brown fox jumps over the lazy dog.", "Kongsberg");
+	//doubleKey("kongsberg", "norway", "oslo");
+	
+
+
+}
