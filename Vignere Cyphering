@@ -1,3 +1,6 @@
+// ConsoleApplication9.cpp : This file contains the 'main' function. Program execution begins and ends there.
+//
+
 
 #include <iostream>
 #include <string>
@@ -5,13 +8,19 @@
 
 
 char encryptChar(char a, char b) {
-	int ascii = (a + b) % 128;
+	int ascii = (a + b) % 127;
+	//int ascii = (a + b) % 27;
+	//char alpha = ascii += 'A';
+	//return alpha;
 	return ascii;
 
 };
 
 char decryptChar(char a, char b) {
-	int ascii = (a - b + 128) % 128;
+	int ascii = (a - b + 127) % 127;
+	//int ascii = (a - b + 27) % 27;
+	//char dealpha = ascii += 'A';
+	//return dealpha;
 	return ascii;
 
 };
@@ -23,9 +32,10 @@ std::string encryptText(std::string plaintext, std::string key) {
 	{
 		char c = encryptChar(plaintext[i], key[i % key.size()]);
 		ciphertext << c;
+		
 
 	}
-
+	//std::cout << ciphertext.str();
 	return ciphertext.str();
 
 
@@ -59,7 +69,7 @@ std::string singleKey(std::string plaintext, std::string key)
 	std::cout << "Ciphertext: " << ciphertext << std::endl;
 
 
-	std::string decrypted = decryptText(ciphertext, "Kongzberg");
+	std::string decrypted = decryptText(ciphertext, key);
 
 	std::cout << "Decrypted Text: " << decrypted << std::endl;
 
@@ -97,9 +107,10 @@ int main()
 {
 
 
-	singleKey("The quick brown fox jumps over the lazy dog.", "Kongsberg");
+	singleKey("HELLO", "KEY");
 	//doubleKey("kongsberg", "norway", "oslo");
-	
-
+	//encryptChar('t', 'j');
+	//encryptText("kongsberg", "norway");
 
 }
+
